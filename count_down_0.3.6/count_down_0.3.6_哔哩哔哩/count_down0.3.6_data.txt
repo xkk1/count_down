@@ -1,0 +1,68 @@
+# 我是储存设置数据的文件
+# 建议修改前备份一下
+# 编程语言：Python
+data = (
+# (enent,goal_time),   格式 例子：('距离2022年高考还有：\n', '2022-6-7 0:0:0'),
+('距离2022年高考\n      \n', '2022-6-7 0:0:0'),
+#('\n距离外语听力高考还有：\n', '2022-1-8 0:0:0'),
+)  # 添加事件"
+
+sayings="""
+把握现在，就是创造未来。
+百尺高梧，撑得起一轮月色
+数椽矮屋，锁不住五夜书声。
+宝剑锋从磨砺出,梅花香自苦寒来。
+不为失败找理由，要为成功找方法。
+读书改变命运，刻苦成就事业，态度决定一切。
+行动是成功的阶梯，行动越多，登得越高。
+"""[1:-1] # 名言，一句一行
+
+# 是 True    否 False
+font = ('黑体', 30)  # 字体 字号
+color = 'black'  # 字体颜色
+background = 'white'  # 背景色
+toolwindow = True  # 是否使用工具窗口
+alpha = 1.0  # 窗口透明度(0.0~1.0)  数值越小窗口透明度越高
+transparentcolor = (True, '#707070') # 是否使用及设定透明色
+topmost = False  # 是否把窗口置顶
+overrideredirect = True # 是否隐藏掉窗口边框和标题栏
+title_bar = False    # 是否在鼠标悬停时显示窗口边框和标题栏
+
+use_saying = False # 是否显示名言
+saying_font = ('宋体', 16) # 名言的字体及字号
+saying_background = "white"  # 名言背景色
+saying_foreground = "black"  # 名言前景色（文字颜色）
+
+use_img = True # 是否使用图片背景
+img_background = "#707070"  # 背景图片背景
+img_file = ".//background.png"  # 背景图片
+label_place = (90, 150) # 显示倒计时的位置
+saying_place = (60, 380)  # 名言位置
+
+cycle = 1 # 数据更新周期（单位：s）
+
+def get_information():
+    information = ''  # 初始化
+    for event,goal_time in data:
+        # print(event)
+        goal_time = time.mktime(time.strptime(goal_time, f))
+        surplus = goal_time - time.time()  # 剩余
+        # 60*60*24 = 86400
+        # 60*60 = 3600
+        information +=  event
+        day = int(surplus // 86400)
+        hour = int((surplus % 86400) // 3600)
+        minute = int((surplus % 3600) // 60)
+        second =  int(surplus % 60)
+        information += f"     {day}天\n{hour:0>2d}小时{minute:0>2d}分钟{second:0>2d}秒\n"
+    return information[:-1]
+
+
+def get_saying():
+    global sayings
+    saying_list = sayings.split("\n")
+    saying = random.choice(saying_list)
+    return saying
+
+# 下一行必须为最后一行，不可更改
+position = (384, 323)
